@@ -86,6 +86,13 @@ void DecisionMakerNode::update_msgs(void)
     Pubs["state"].publish(state_msg);
     Pubs["state_overlay"].publish(createOverlayText(state_msg.data, 1));
 
+    state_msg.data = ctx_vehicle->getStateText();
+    Pubs["state_vehicle"].publish(state_msg);
+    state_msg.data = ctx_mission->getStateText();
+    Pubs["state_mission"].publish(state_msg);
+    state_msg.data = ctx_drive->getStateText();
+    Pubs["state_drive"].publish(state_msg);
+
     static std_msgs::String transition_msg;
     transition_msg.data = ctx_vehicle->getAvailableTransition() + ctx_mission->getAvailableTransition() +
                           ctx_drive->getAvailableTransition();
